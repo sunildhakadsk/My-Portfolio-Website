@@ -190,6 +190,106 @@ git push -u origin main
 
 The `db.sqlite3` file is excluded from git (via `.gitignore`) as it contains local development data. If you need to deploy this project, you'll need to set up a production database separately.
 
+## Deploy to Vercel
+
+This Django portfolio can be deployed to Vercel as a serverless function. Follow these steps:
+
+### Prerequisites
+
+1. A GitHub account (your code should be pushed to GitHub)
+2. A Vercel account (sign up at [vercel.com](https://vercel.com))
+
+### Deployment Steps
+
+#### Option 1: Deploy via Vercel Dashboard (Recommended)
+
+1. **Push your code to GitHub** (see GitHub hosting section above)
+
+2. **Go to Vercel Dashboard**
+   - Visit [vercel.com](https://vercel.com) and sign in
+   - Click "Add New..." → "Project"
+
+3. **Import your GitHub repository**
+   - Select your portfolio repository
+   - Click "Import"
+
+4. **Configure Project Settings**
+   - **Framework Preset**: Other
+   - **Root Directory**: `./` (leave as default)
+   - **Build Command**: Leave empty (or use `python manage.py collectstatic --noinput` if needed)
+   - **Output Directory**: Leave empty
+   - **Install Command**: `pip install -r requirements.txt`
+
+5. **Set Environment Variables** (Important!)
+   Click "Environment Variables" and add:
+   - `SECRET_KEY`: Generate a secure secret key (you can use: `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`)
+   - `DEBUG`: Set to `False` for production
+   - `VERCEL`: Set to `1`
+
+6. **Deploy**
+   - Click "Deploy"
+   - Wait for deployment to complete
+   - Your site will be live at `your-project-name.vercel.app`
+
+#### Option 2: Deploy via Vercel CLI
+
+1. **Install Vercel CLI**
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Login to Vercel**
+   ```bash
+   vercel login
+   ```
+
+3. **Deploy**
+   ```bash
+   vercel
+   ```
+
+4. **Set Environment Variables**
+   ```bash
+   vercel env add SECRET_KEY
+   vercel env add DEBUG
+   vercel env add VERCEL
+   ```
+
+5. **Deploy to Production**
+   ```bash
+   vercel --prod
+   ```
+
+### Important Notes for Vercel Deployment
+
+⚠️ **Database Limitations**: 
+- SQLite databases don't work well on Vercel's serverless functions (they're read-only and ephemeral)
+- The contact form will not save submissions unless you:
+  - Use an external database (PostgreSQL, MongoDB, etc.)
+  - Use a service like Vercel Postgres, Supabase, or MongoDB Atlas
+  - Or disable the database functionality and use a form service like Formspree
+
+**To use an external database:**
+1. Set up a PostgreSQL database (Vercel Postgres, Supabase, or Railway)
+2. Update `settings.py` to use the production database
+3. Update `DATABASES` setting with your database credentials
+4. Run migrations: `python manage.py migrate`
+
+### Troubleshooting
+
+- **Static files not loading**: Ensure `STATIC_URL` is set to `/static/` in settings.py
+- **500 errors**: Check Vercel function logs in the dashboard
+- **Database errors**: Consider using an external database or disabling database features
+- **Import errors**: Ensure all dependencies are in `requirements.txt`
+
+### Alternative: Static Site Deployment
+
+If you want a simpler deployment without serverless functions, consider:
+- Converting Django templates to static HTML
+- Using GitHub Pages
+- Using Netlify Drop
+- Using Vercel's static site hosting
+
 ## License
 
 This project is open source and available for personal use.
