@@ -1,64 +1,82 @@
-{% extends 'portfolio/base.html' %}
-{% load static %}
+{% extends "portfolio/base.html" %}
 
-{% block title %}Projects - Sunil Dhakad{% endblock %}
+{% block title %}Projects | My Portfolio{% endblock %}
 
 {% block content %}
-<section class="page-header">
-    <div class="container">
-        <h1>My Projects</h1>
-        <p>A collection of my recent work and projects</p>
-    </div>
-</section>
-
-<section class="projects-page">
-    <div class="container">
-        {% if projects %}
-        <div class="projects-grid">
-            {% for project in projects %}
-            <div class="project-card">
-                <div class="project-image">
-                    {% if project.featured_image %}
-                    <img src="{{ project.featured_image.url }}" alt="{{ project.title }}">
-                    {% else %}
-                    <div class="placeholder-project-image">
-                        <i class="fas fa-image"></i>
-                        <p>No Image</p>
-                    </div>
-                    {% endif %}
-                    <div class="project-overlay">
-                        <a href="{% url 'project_detail' project.pk %}" class="btn btn-small">View Details</a>
-                    </div>
-                </div>
-                <div class="project-content">
-                    <h3>{{ project.title }}</h3>
-                    <p>{{ project.description|truncatewords:25 }}</p>
-                    <div class="project-tech">
-                        {% for tech in project.get_technologies_list %}
-                        <span class="tech-tag">{{ tech }}</span>
-                        {% endfor %}
-                    </div>
-                    <div class="project-links">
-                        <a href="{% if project.github_url %}{{ project.github_url }}{% else %}https://github.com/sunildhakadsk/Portfolio-Website.git{% endif %}" target="_blank" rel="noopener noreferrer" title="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        {% if project.live_url %}
-                        <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" title="Live Demo">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <div class="no-projects">
-            <i class="fas fa-folder-open"></i>
-            <p>No projects available yet. Check back soon!</p>
-        </div>
-        {% endif %}
-    </div>
+<section class="section">
+  <h2>Projects</h2>
+  <div class="grid">
+    <article class="card">
+      <h3>Weather Application</h3>
+      <p>
+        A weather web application that shows real-time temperature, humidity, and
+        conditions for any city using a public weather API.
+      </p>
+      <p class="tech">Python · Flask · OpenWeather API · HTML · CSS</p>
+      <div class="project-links">
+        <a
+          href="https://github.com/sunildhakadsk/Weather-Forecast-App-project"
+          target="_blank"
+          class="btn ghost"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://your-weather-app-live-link.com"
+          target="_blank"
+          class="btn primary"
+        >
+          Live
+        </a>
+      </div>
+    </article>
+    <article class="card">
+      <h3>Portfolio Website</h3>
+      <p>Designed and developed a personal portfolio website with a responsive frontend. Integrated a contact form with database storage and Django Admin for management.Deployed the website on Render and connected to GitHub for continuous updates.</p>
+      <p class="tech">Django · HTML · CSS</p>
+      <div class="project-links">
+        <a
+          href="https://github.com/sunildhakadsk/Portfolio-Website-project"
+          target="_blank"
+          class="btn ghost"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://sunildhakadsk.github.io/Portfolio-Website-project/"
+          target="_blank"
+          class="btn primary"
+        >
+          Live
+        </a>
+      </div>
+    </article>
+    <article class="card">
+      <h3>Blog Application</h3>
+      <p>
+        A simple blog platform where users can read posts; includes post listing,
+        detail pages, and basic admin management.
+      </p>
+      <p class="tech">Python · Django · SQLite · HTML · CSS</p>
+      <div class="project-links">
+        <a
+          href="https://github.com/your-username/your-blog-app-repo"
+          target="_blank"
+          class="btn ghost"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://your-blog-app-live-link.com"
+          target="_blank"
+          class="btn primary"
+        >
+          Live
+        </a>
+      </div>
+    </article>
+  </div>
 </section>
 {% endblock %}
+
 
