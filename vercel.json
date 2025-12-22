@@ -1,5 +1,4 @@
 {
-  "version": 2,
   "builds": [
     {
       "src": "portfolio_project/wsgi.py",
@@ -11,9 +10,5 @@
       "src": "/(.*)",
       "dest": "portfolio_project/wsgi.py"
     }
-  ],
-  "env": {
-    "PYTHONPATH": "."
-  }
+  ]
 }
-
