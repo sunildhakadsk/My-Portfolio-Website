@@ -19,7 +19,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-in-produc
 # Default to True for local development, False for production
 DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.vercel.app,localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.render.com,.vercel.app,localhost,127.0.0.1').split(',')
 
 
 # Application definition
@@ -74,7 +74,7 @@ WSGI_APPLICATION = 'portfolio_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# Use PostgreSQL in production (Vercel), SQLite for local development
+# Use PostgreSQL in production (Render/Vercel), SQLite for local development
 if os.environ.get('DATABASE_URL'):
     import dj_database_url
     DATABASES = {
