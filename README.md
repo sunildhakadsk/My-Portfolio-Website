@@ -1,88 +1,109 @@
 # Personal Portfolio Website
 
-A modern, responsive portfolio website built with Django, HTML, and CSS.
+A modern, responsive portfolio website built with Django, HTML, and CSS. This website showcases projects, skills, and includes a contact form with image handling capabilities.
 
 ## Features
 
-- **Modern Design**: Beautiful, clean UI with smooth animations
-- **Responsive Layout**: Works perfectly on desktop, tablet, and mobile devices
-- **Sections Included**:
-  - Hero section with introduction
-  - About me section
-  - Skills showcase with progress bars
-  - Projects portfolio
-  - Contact form
-- **Smooth Scrolling**: CSS-based smooth scrolling navigation
-- **Mobile Menu**: Pure CSS hamburger menu (no JavaScript required)
+- **Responsive Design**: Mobile-friendly layout that works on all devices
+- **Project Showcase**: Display projects with featured images and additional gallery images
+- **Image Management**: Full support for uploading and displaying images through Django admin
+- **Contact Form**: Functional contact form with database storage
+- **Django Admin**: Easy content management through Django admin interface
+- **Modern UI**: Clean, professional design with smooth animations
 
-## Prerequisites
+## Technologies Used
 
-- Python 3.8 or higher
-- pip (Python package installer)
+- **Backend**: Django 4.2+
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Database**: SQLite (default, can be changed to PostgreSQL/MySQL)
+- **Image Processing**: Pillow
+- **Icons**: Font Awesome
 
 ## Installation
 
-1. **Activate your virtual environment** (if you're using one):
+1. **Clone the repository** (if applicable) or navigate to the project directory:
    ```bash
-   # On Windows
-   venv\Scripts\activate
-
-   # On macOS/Linux
-   source venv/bin/activate
+   cd "personal portfolio"
    ```
 
-2. **Install dependencies**:
+2. **Create a virtual environment** (recommended):
+   ```bash
+   python -m venv venv
+   ```
+
+3. **Activate the virtual environment**:
+   - On Windows:
+     ```bash
+     venv\Scripts\activate
+     ```
+   - On macOS/Linux:
+     ```bash
+     source venv/bin/activate
+     ```
+
+4. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Run migrations** (if needed):
+5. **Run migrations**:
    ```bash
+   python manage.py makemigrations
    python manage.py migrate
    ```
 
-4. **Create a superuser** (optional, for admin access):
+6. **Create a superuser** (to access Django admin):
    ```bash
    python manage.py createsuperuser
    ```
 
-5. **Run the development server**:
+7. **Run the development server**:
    ```bash
    python manage.py runserver
    ```
 
-6. **Open your browser** and navigate to:
-   ```
-   http://127.0.0.1:8000/
-   ```
+8. **Access the website**:
+   - Website: http://127.0.0.1:8000/
+   - Admin Panel: http://127.0.0.1:8000/admin/
 
-## Customization
+## Setup Instructions
 
-### Update Personal Information
+### 1. Add Personal Information
 
-1. **Edit the HTML template** (`portfolio/templates/portfolio/index.html`):
-   - Replace "Your Name" with your actual name
-   - Update the email, phone, and location in the contact section
-   - Modify the about me text
-   - Update project information
+1. Go to Django Admin: http://127.0.0.1:8000/admin/
+2. Navigate to **Portfolio > Personal Info**
+3. Click **Add Personal Info** and fill in your details:
+   - Full Name
+   - Title (e.g., "Python Backend Developer")
+   - Email, Phone, Location
+   - LinkedIn and GitHub URLs
+   - Profile Image (optional)
+   - Professional Summary
+   - Resume File (optional)
 
-2. **Update Skills**:
-   - Edit the skills section in `index.html`
-   - Adjust skill percentages as needed
+### 2. Add Projects
 
-3. **Update Projects**:
-   - Replace project placeholders with your actual projects
-   - Update project descriptions and technologies used
-   - Add links to your live demos and GitHub repositories
+1. Go to **Portfolio > Projects** in Django Admin
+2. Click **Add Project** and fill in:
+   - Title
+   - Description
+   - Technologies (comma-separated, e.g., "Python, Django, MySQL")
+   - GitHub URL (optional)
+   - Live URL (optional)
+   - **Featured Image** (required - main project image)
+   - Mark as "Featured" if you want it on the homepage
+   - Set display order (lower numbers appear first)
 
-4. **Update Social Links**:
-   - Replace placeholder social media links with your actual profiles
+3. **Add Additional Images** (optional):
+   - After saving a project, you can add multiple gallery images
+   - Click on the project, scroll down to "Project Images"
+   - Add images with optional captions
 
-### Styling
+### 3. View Contact Messages
 
-- Main CSS file: `static/portfolio/css/style.css`
-- Color scheme can be customized using CSS variables in the `:root` selector
-- Font: Currently using Poppins from Google Fonts
+- Contact form submissions are stored in **Portfolio > Contact Messages**
+- You can mark messages as read/unread
+- All messages include name, email, subject, message, and timestamp
 
 ## Project Structure
 
@@ -99,208 +120,124 @@ personal portfolio/
 │   └── asgi.py
 ├── portfolio/
 │   ├── __init__.py
+│   ├── admin.py
 │   ├── apps.py
+│   ├── models.py
 │   ├── views.py
 │   ├── urls.py
-│   └── templates/
+│   ├── migrations/
+│   ├── templates/
+│   │   └── portfolio/
+│   │       ├── base.html
+│   │       ├── home.html
+│   │       ├── projects.html
+│   │       ├── project_detail.html
+│   │       └── contact.html
+│   └── static/
 │       └── portfolio/
-│           └── index.html
-└── static/
-    └── portfolio/
-        └── css/
-            └── style.css
+│           ├── css/
+│           │   └── style.css
+│           └── js/
+│               └── main.js
+└── media/
+    ├── projects/
+    ├── profile/
+    └── resume/
 ```
 
-## Technologies Used
+## Models
 
-- **Backend**: Django 4.2+
-- **Frontend**: HTML5, CSS3 (No JavaScript required!)
-- **Fonts**: Google Fonts (Poppins)
+### Project
+- Stores project information with featured image
+- Supports multiple additional images through ProjectImage model
+- Can be marked as featured for homepage display
 
-## Future Enhancements
+### ProjectImage
+- Additional images for projects
+- Supports captions and ordering
 
-- Add contact form backend functionality
-- Integrate with email service for contact form
-- Add blog section
-- Add dark mode toggle
-- Add animations library (AOS, Framer Motion, etc.)
-- Add project filtering/categories
+### ContactMessage
+- Stores contact form submissions
+- Tracks read/unread status
 
-## Hosting on GitHub
+### PersonalInfo
+- Stores personal information displayed on the site
+- Supports profile image and resume file uploads
 
-To host this project on GitHub, follow these steps:
+## Deployment
 
-### 1. Initialize Git Repository
+### For Production Deployment:
 
-Open PowerShell or Command Prompt in the project directory and run:
+1. **Update settings.py**:
+   - Set `DEBUG = False`
+   - Update `ALLOWED_HOSTS` with your domain
+   - Change `SECRET_KEY` to a secure random value
+   - Configure a production database (PostgreSQL recommended)
 
-```bash
-git init
-```
-
-### 2. Add Files to Git
-
-```bash
-git add .
-```
-
-### 3. Create Initial Commit
-
-```bash
-git commit -m "Initial commit: Personal portfolio website"
-```
-
-### 4. Create GitHub Repository
-
-1. Go to [GitHub](https://github.com) and sign in
-2. Click the "+" icon in the top right corner
-3. Select "New repository"
-4. Enter a repository name (e.g., "personal-portfolio")
-5. Choose public or private visibility
-6. **DO NOT** initialize with README, .gitignore, or license (since you already have these)
-7. Click "Create repository"
-
-### 5. Connect Local Repository to GitHub
-
-After creating the repository, GitHub will show you commands. Use these (replace `YOUR_USERNAME` and `REPO_NAME` with your actual values):
-
-```bash
-git remote add origin https://github.com/YOUR_USERNAME/REPO_NAME.git
-git branch -M main
-git push -u origin main
-```
-
-### 6. Push Your Code
-
-```bash
-git push -u origin main
-```
-
-### Alternative: Using GitHub Desktop
-
-1. Download and install [GitHub Desktop](https://desktop.github.com/)
-2. Open GitHub Desktop
-3. Click "File" → "Add Local Repository"
-4. Select your project folder
-5. Click "Publish repository" in GitHub Desktop
-6. Enter repository name and description
-7. Click "Publish repository"
-
-### Note on Database
-
-The `db.sqlite3` file is excluded from git (via `.gitignore`) as it contains local development data. If you need to deploy this project, you'll need to set up a production database separately.
-
-## Deploy to Vercel
-
-This Django portfolio can be deployed to Vercel as a serverless function. Follow these steps:
-
-### Prerequisites
-
-1. A GitHub account (your code should be pushed to GitHub)
-2. A Vercel account (sign up at [vercel.com](https://vercel.com))
-
-### Deployment Steps
-
-#### Option 1: Deploy via Vercel Dashboard (Recommended)
-
-1. **Push your code to GitHub** (see GitHub hosting section above)
-
-2. **Go to Vercel Dashboard**
-   - Visit [vercel.com](https://vercel.com) and sign in
-   - Click "Add New..." → "Project"
-
-3. **Import your GitHub repository**
-   - Select your portfolio repository
-   - Click "Import"
-
-4. **Configure Project Settings**
-   - **Framework Preset**: Other
-   - **Root Directory**: `./` (leave as default)
-   - **Build Command**: Leave empty (or use `python manage.py collectstatic --noinput` if needed)
-   - **Output Directory**: Leave empty
-   - **Install Command**: `pip install -r requirements.txt` (or `pip install --no-warn-script-location -r requirements.txt` to suppress warnings)
-
-5. **Set Environment Variables** (Important!)
-   Click "Environment Variables" and add:
-   - `SECRET_KEY`: Generate a secure secret key (you can use: `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`)
-   - `DEBUG`: Set to `False` for production
-   - `VERCEL`: Set to `1`
-
-6. **Deploy**
-   - Click "Deploy"
-   - Wait for deployment to complete
-   - Your site will be live at `your-project-name.vercel.app`
-
-#### Option 2: Deploy via Vercel CLI
-
-1. **Install Vercel CLI**
+2. **Collect static files**:
    ```bash
-   npm install -g vercel
+   python manage.py collectstatic
    ```
 
-2. **Login to Vercel**
-   ```bash
-   vercel login
-   ```
+3. **Set up media file serving** (for production):
+   - Configure your web server (Nginx/Apache) to serve media files
+   - Or use cloud storage (AWS S3, Cloudinary, etc.)
 
-3. **Deploy**
-   ```bash
-   vercel
-   ```
+### Recommended Platforms:
+- **Render**: Easy deployment with PostgreSQL
+- **Heroku**: Popular platform with good Django support
+- **AWS EC2**: Full control over server configuration
+- **DigitalOcean**: Simple VPS deployment
 
-4. **Set Environment Variables**
-   ```bash
-   vercel env add SECRET_KEY
-   vercel env add DEBUG
-   vercel env add VERCEL
-   ```
+## Features in Detail
 
-5. **Deploy to Production**
-   ```bash
-   vercel --prod
-   ```
+### Image Handling
+- Images are automatically resized and optimized
+- Featured images for projects
+- Gallery images with captions
+- Profile image support
+- Resume file uploads
 
-### Important Notes for Vercel Deployment
+### Responsive Design
+- Mobile-first approach
+- Hamburger menu for mobile devices
+- Flexible grid layouts
+- Touch-friendly buttons and links
 
-⚠️ **Database Limitations**: 
-- SQLite databases don't work well on Vercel's serverless functions (they're read-only and ephemeral)
-- The contact form will not save submissions unless you:
-  - Use an external database (PostgreSQL, MongoDB, etc.)
-  - Use a service like Vercel Postgres, Supabase, or MongoDB Atlas
-  - Or disable the database functionality and use a form service like Formspree
+### Contact Form
+- CSRF protection
+- Form validation
+- Success/error messages
+- Database storage
+- Admin interface for viewing messages
 
-**To use an external database:**
-1. Set up a PostgreSQL database (Vercel Postgres, Supabase, or Railway)
-2. Update `settings.py` to use the production database
-3. Update `DATABASES` setting with your database credentials
-4. Run migrations: `python manage.py migrate`
+## Customization
 
-ℹ️ **Pip Warning**: 
-- You may see a warning about running pip as root user during deployment
-- This is **normal and safe to ignore** in Vercel's isolated serverless environment
-- Vercel uses isolated containers, so this warning doesn't affect your deployment
-- To suppress the warning, you can add `--no-warn-script-location` to your install command in Vercel settings
+### Colors
+Edit CSS variables in `portfolio/static/portfolio/css/style.css`:
+```css
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    /* ... */
+}
+```
 
-### Troubleshooting
-
-- **Static files not loading**: Ensure `STATIC_URL` is set to `/static/` in settings.py
-- **500 errors**: Check Vercel function logs in the dashboard
-- **Database errors**: Consider using an external database or disabling database features
-- **Import errors**: Ensure all dependencies are in `requirements.txt`
-
-### Alternative: Static Site Deployment
-
-If you want a simpler deployment without serverless functions, consider:
-- Converting Django templates to static HTML
-- Using GitHub Pages
-- Using Netlify Drop
-- Using Vercel's static site hosting
+### Styling
+All styles are in `portfolio/static/portfolio/css/style.css`. Modify as needed for your brand.
 
 ## License
 
 This project is open source and available for personal use.
 
-## Contact
+## Author
 
-Feel free to customize this portfolio to match your personal brand and style!
+**Sunil Dhakad**
+- Email: sunildhakadsk2255@gmail.com
+- LinkedIn: [sunil-dhakad-110913316](https://linkedin.com/in/sunil-dhakad-110913316)
+- GitHub: [sunildhakadsk](https://github.com/sunildhakadsk)
+
+## Support
+
+For issues or questions, please contact through the contact form on the website or via email.
 

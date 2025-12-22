@@ -1,14 +1,19 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/api/index.py"
+      "src": "portfolio_project/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "portfolio_project/wsgi.py"
     }
   ],
   "env": {
-    "PYTHONPATH": ".",
-    "VERCEL": "1"
+    "PYTHONPATH": "."
   }
 }
 
