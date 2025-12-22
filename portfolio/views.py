@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from .models import Project, ContactMessage, PersonalInfo
@@ -28,7 +28,7 @@ def projects(request):
 
 def project_detail(request, pk):
     """Individual project detail page"""
-    project = Project.objects.get(pk=pk)
+    project = get_object_or_404(Project, pk=pk)
     project_images = project.images.all()
     context = {
         'project': project,
