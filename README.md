@@ -218,7 +218,7 @@ This Django portfolio can be deployed to Vercel as a serverless function. Follow
    - **Root Directory**: `./` (leave as default)
    - **Build Command**: Leave empty (or use `python manage.py collectstatic --noinput` if needed)
    - **Output Directory**: Leave empty
-   - **Install Command**: `pip install -r requirements.txt`
+   - **Install Command**: `pip install -r requirements.txt` (or `pip install --no-warn-script-location -r requirements.txt` to suppress warnings)
 
 5. **Set Environment Variables** (Important!)
    Click "Environment Variables" and add:
@@ -274,6 +274,12 @@ This Django portfolio can be deployed to Vercel as a serverless function. Follow
 2. Update `settings.py` to use the production database
 3. Update `DATABASES` setting with your database credentials
 4. Run migrations: `python manage.py migrate`
+
+ℹ️ **Pip Warning**: 
+- You may see a warning about running pip as root user during deployment
+- This is **normal and safe to ignore** in Vercel's isolated serverless environment
+- Vercel uses isolated containers, so this warning doesn't affect your deployment
+- To suppress the warning, you can add `--no-warn-script-location` to your install command in Vercel settings
 
 ### Troubleshooting
 
